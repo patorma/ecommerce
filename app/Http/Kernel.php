@@ -52,6 +52,7 @@ class Kernel extends HttpKernel
      *
      * @var array
      */
+    // Son middleware que se asigna por ruta o controlador
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
