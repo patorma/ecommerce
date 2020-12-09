@@ -15,6 +15,9 @@ class ProductsController extends Controller
     public function index()
     {
         // Muestra una coleccion del recurso
+        $products = Product::all();
+
+        return view('products.index',['products' => $products]);
     }
 
     /**
@@ -48,7 +51,7 @@ class ProductsController extends Controller
             'price' => $request->price
         ];
         if(Product::create($options)){
-          return redirect('/');
+          return redirect('/productos');
         }else {
            return view('products.create');
         }
@@ -88,6 +91,19 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         // Actualizar un recurso especifico
+        // Buscamor por id el producto
+        $product = Product::find($id);
+
+        // Estas modificaciones son al objeto es decir van a la memoria virtual
+        $product->title = $request->title;
+        $product->price = $request->price;
+        $product->description = $request->description;
+
+        if($product->save()){
+            return redirect('/');
+        }else {
+            return view('products.edit',['product' => $product]);
+        }
     }
 
     /**
