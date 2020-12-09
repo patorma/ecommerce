@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class ProductsController extends Controller
 {
@@ -25,7 +26,10 @@ class ProductsController extends Controller
     {
         // Mostramos un formulario para crear nuevos ejemplos
         // Carpeta.archivo
-        return view('products.create');
+        // se pasa a la vista create la variable $product
+        // Aca sera un objeto vacio de producto
+        $product = new Product;
+        return view('products.create',['product' => $product]);
     }
 
     /**
@@ -37,6 +41,17 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         // Almacenar en la base de datos nuevos recursos 
+        // var_dump($request);
+        $options = [
+            'title' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price
+        ];
+        if(Product::create($options)){
+          return redirect('/');
+        }else {
+           return view('products.create');
+        }
     }
 
     /**
@@ -59,6 +74,8 @@ class ProductsController extends Controller
     public function edit($id)
     {
         // Muestra un formulario para editar un recurso
+        $product = Product::find($id);
+        return view('products.edit',['product' => $product]);
     }
 
     /**
