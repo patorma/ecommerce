@@ -12,14 +12,11 @@
            </header>
            <p class="card-text">{{$product->description}}</p>
         </div>
-
- </div>
-         
-
-  @endforeach
+ </div>     
+     @endforeach
 </div>
-  
-
+<div class="actions text-center">
+   {{$products->links()}}
 </div>
-
+</div>
 @endsection
