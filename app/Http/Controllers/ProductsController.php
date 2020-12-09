@@ -66,6 +66,13 @@ class ProductsController extends Controller
     public function show($id)
     {
         // Muestra un recurso
+
+        // Se busca el producto por id
+        $product = Product::find($id);
+
+        return view('products.show',['product' => $product]);
+
+
     }
 
     /**
@@ -115,5 +122,7 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         // Eliminar un recurso
+        Product::destroy($id);
+        return redirect('/productos');
     }
 }
