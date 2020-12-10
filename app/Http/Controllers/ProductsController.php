@@ -7,6 +7,10 @@ use App\Models\Product;
 
 class ProductsController extends Controller
 {
+    public function __construct(){
+        //al ponerlo sin mas argumentos pide iniciar sesion 
+        $this->middleware('auth',['except' => ['index','show']]);
+    }
     /**
      * Display a listing of the resource.
      *
